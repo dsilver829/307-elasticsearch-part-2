@@ -34,4 +34,12 @@ class Article < ActiveRecord::Base
     end
     __elasticsearch__.search(query).records
   end
+
+  def as_indexed_json(options = {})
+    as_json methods: [:author_name]
+  end
+
+  def author_name
+    author.name
+  end
 end
