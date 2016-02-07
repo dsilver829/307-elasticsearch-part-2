@@ -8,6 +8,16 @@ class Article < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
+  mapping do
+    indexes :id, type: "integer"
+    indexes :author_id, type: "integer"
+    indexes :author_name
+    indexes :name, boost: 10
+    indexes :content
+    indexes :published_at, type: "date"
+    indexes :comment_count, type: "integer"
+  end
+
   def self.search(params)
     query = Jbuilder.encode do |json|
       if params[:query].present?
