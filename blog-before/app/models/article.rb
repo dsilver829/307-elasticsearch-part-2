@@ -32,14 +32,18 @@ class Article < ActiveRecord::Base
         end
       end
     end
-    __elasticsearch__.search(query).records
+    __elasticsearch__.search(query)
   end
 
   def as_indexed_json(options = {})
-    as_json methods: [:author_name]
+    as_json methods: [:author_name, :comment_count]
   end
 
   def author_name
     author.name
+  end
+
+  def comment_count
+    comments.size
   end
 end
