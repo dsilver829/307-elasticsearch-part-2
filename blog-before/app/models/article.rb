@@ -24,6 +24,13 @@ class Article < ActiveRecord::Base
           end
         end
       end
+      if params[:query].blank?
+        json.sort do
+          json.published_at do
+            json.order "desc"
+          end
+        end
+      end
     end
     __elasticsearch__.search(query).records
   end
