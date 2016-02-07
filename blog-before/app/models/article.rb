@@ -12,11 +12,8 @@ class Article < ActiveRecord::Base
     query = Jbuilder.encode do |json|
       if params[:query].present?
         json.query do
-          json.multi_match do
+          json.query_string do
             json.query params[:query]
-            json.fields do
-              json.array! ["name", "content"]
-            end
           end
         end
       end
